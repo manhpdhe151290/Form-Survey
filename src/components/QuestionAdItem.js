@@ -24,6 +24,7 @@ const QuestionAdItem = (props) => {
     }
   }
     const handleUpdate=(id)=>{
+      console.log(id);
       if (window.confirm('Are you sure')) {
         dispatch(updateQuestion(id,{question,answer1,answer2,answer3,answer4,correctanswer}));
     }
