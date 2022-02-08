@@ -57,16 +57,27 @@ const handleNext=()=>{
 }
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(createQuestion({ 
-      question,answer1,answer2,answer3,answer4,correctanswer
-    }));
-    setQuestion('')
-    setAnswer1('')
-    setAnswer2('')
-    setAnswer3('')
-    setAnswer4('')
-    setCorrectanswer('')
-    alert('Created Question Successfully')
+    if (
+      correctanswer === answer1 ||
+      correctanswer === answer2 ||
+      correctanswer === answer3 ||
+      correctanswer === answer4
+    ){
+      dispatch(createQuestion({ 
+        question,answer1,answer2,answer3,answer4,correctanswer
+      }));
+      setQuestion('')
+      setAnswer1('')
+      setAnswer2('')
+      setAnswer3('')
+      setAnswer4('')
+      setCorrectanswer('')
+      alert('Created Question Successfully')
+      dispatch(listAdQuestions(page))
+    }else{
+      alert('The correctAnswer does not match the answer')
+    }
+   
   }
   return (
     <>

@@ -49,11 +49,15 @@ const HomeScreen = () => {
     }
     console.log('submit')
   }
-
+  const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo  } = userLogin
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(listQuestions(page))
-  }, [dispatch, page])
+    if(userInfo && (userInfo.user.role !== 'admin')){
+      dispatch(listQuestions(page))
+    }
+    
+  }, [dispatch,userInfo, page])
   function onHandlePageChange(page) {
     if (page <= 1) {
       setPage(1)
