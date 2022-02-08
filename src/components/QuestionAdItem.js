@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { deleteQuestion, updateQuestion } from '../actions/questionActions';
+import Backdrop from './Test/BackDrop';
+import Modal from './Test/Modal';
 const QuestionAdItem = (props) => {
-  const navigate = useNavigate()
-  const token=props.token
+  const [showModal, setShowModal] = useState();
+
+  function showModalHandler() {
+    setShowModal(true);
+  }
+
+  function closeModalHandler() {
+    setShowModal(false);
+  }
   const dispatch = useDispatch()
-  const questionUpdate=props.questionUpdate
   const data=props.data
   const [question, setQuestion] = useState('')
   const [answer1, setAnswer1] = useState('')
@@ -16,9 +23,9 @@ const QuestionAdItem = (props) => {
   const [correctanswer, setCorrectanswer] = useState('')
   
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure')) {
+    
         dispatch(deleteQuestion(id));
-    }
+        setShowModal(false);
   }
     const handleUpdate=(id)=>{
       if (window.confirm('Are you sure')) {
@@ -57,8 +64,14 @@ const QuestionAdItem = (props) => {
         <input type="text" name="answer3" value={answer3} onChange={(e) => setAnswer3(e.target.value)}/>
         <input type="text" name="answer4" value={answer4} onChange={(e) => setAnswer4(e.target.value)}/>
         <input type="text"name="correctanswer" value={correctanswer} onChange={(e) => setCorrectanswer(e.target.value)} />
-        <div><button onClick={()=>handleUpdate(data.id)} className='my-3'>Update</button>
-        <button onClick={()=>handleDelete(data.id)}>Delete</button></div>
+        <div><button onClick={()=>handleUpdate(data.id)} className='my-3 btn'>Update</button>
+        
+        <button className='btn' onClick={showModalHandler}>
+          Delete
+        </button>
+        {showModal && <Backdrop onClick={closeModalHandler} />}
+      {showModal && <Modal text='Are you sure?' onClose={closeModalHandler} handlerDelete={() => handleDelete(data.id)}/>}
+     </div>
           
 
     </div>
