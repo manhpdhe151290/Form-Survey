@@ -93,7 +93,7 @@ const HomeScreen = () => {
           ) : (
             ''
           )}
-
+        
           <Pagination
             page={page}
             handlePage={onHandlePageChange}

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector} from 'react-redux';
 import { deleteQuestion, updateQuestion } from '../actions/questionActions';
-import Backdrop from './Test/BackDrop';
-import Modal from './Test/Modal';
+import Backdrop from './UI/BackDrop';
+import Modal from './UI/Modal';
+
 const QuestionAdItem = (props) => {
   const [showModal, setShowModal] = useState();
 
@@ -13,6 +14,7 @@ const QuestionAdItem = (props) => {
   function closeModalHandler() {
     setShowModal(false);
   }
+
   const dispatch = useDispatch()
   const data=props.data
   const [question, setQuestion] = useState('')
@@ -26,11 +28,23 @@ const QuestionAdItem = (props) => {
     
         dispatch(deleteQuestion(id));
         setShowModal(false);
+        
+       
   }
     const handleUpdate=(id)=>{
-      if (window.confirm('Are you sure')) {
+      if (
+        correctanswer === answer1 ||
+        correctanswer === answer2 ||
+        correctanswer === answer3 ||
+        correctanswer === answer4
+      ){
         dispatch(updateQuestion(id,{question,answer1,answer2,answer3,answer4,correctanswer}));
-    }
+       
+      }else {
+        alert('The correctAnswer does not match the answer')
+      }
+     
+     
     }
   useEffect(() => {
     if(data){

@@ -10,7 +10,6 @@ const QuestionItem = (props) => {
          
           return ''
         }
-        console.log(index)
         return ans[index].correctanswer
       }
       return ''

@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 const IntroScreen = () => {
     const navigate = useNavigate();
     const handleClick =() => {
-        navigate('/')
+        navigate('/home')
     }
   return  <div className="screen">
   <h1>Catch The Insect</h1>

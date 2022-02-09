@@ -30,11 +30,16 @@ const ProductListScreen = () => {
 const token=userInfo?userInfo.tokens.access.token:''
   const questionAd = useSelector((state) => state.questionAd)
   const { loading, error, questions, totalPages } = questionAd
+  const questionDelete = useSelector((state) => state.questionDelete)
+  const {success: successDelete} = questionDelete 
+  const questionUpdate1 = useSelector((state) => state.questionUpdate)
+  const {success: successUpdate} = questionUpdate1 
   useEffect(() => {
     dispatch(listAdQuestions(page))
-  }, [dispatch, page])
+  }, [dispatch, page,successDelete,successUpdate])
   const [questionId,setQuestionId]=useState('')
   const [questionUpdate,setQuestionUpdate]=useState('')
+ 
   const handleQuestionUpdate=(id)=>{
     setQuestionUpdate(id)
 }
@@ -78,6 +83,9 @@ const handleNext=()=>{
       alert('The correctAnswer does not match the answer')
     }
    
+  }
+  function handlerLoader(newpage){
+    dispatch(listAdQuestions(newpage))
   }
   return (
     <>
@@ -170,6 +178,8 @@ const handleNext=()=>{
                         questionUpdate={questionUpdate}
                         handleChangeQuestionId={handleChangeQuestionId}
                         handleQuestionUpdate={handleQuestionUpdate}
+                        handlerLoad = {handlerLoader}
+                        page={page}
                     />
                     
                 )
